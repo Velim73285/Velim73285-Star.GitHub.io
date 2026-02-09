@@ -148,6 +148,12 @@ Table output for the binary variable called has_recovery
 
 Notes: (0 = No recoveries reported and 1 = Recoveries reported)
 
+#### 2.2.2	Seminar 2 on 10 February 2026
+#### 2.2.2.1 An article by Dong, Y. (2023)
+Using the article by Dong, Y. (2023) ‘Descriptive statistics and its applications’, Highlights in Science, Engineering and Technology, 47, pp. 16–23 to answer the following questions.
+
+
+
 ## 3.	What exactly have I learnt and how?
 To be completed
 
