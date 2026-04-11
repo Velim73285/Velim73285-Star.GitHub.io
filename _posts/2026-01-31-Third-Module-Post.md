@@ -1181,7 +1181,7 @@ print(table_result)
 
 ![Boxplot of income](https://raw.githubusercontent.com/Velim73285-Star/Velim73285-Star.GitHub.io/main/assets/images/banners/Cross_tabulation_table_for_recovery_status.PNG)
 
-### 2.8	Unit 9: Correlation 
+### 2.8	Unit 10: Correlation 
 #### 2.8.1	Data Activity 8
 Using the Health_Data, perform the following functions in R and the questions.
 
