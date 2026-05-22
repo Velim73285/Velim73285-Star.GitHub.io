@@ -400,11 +400,7 @@ print(df.head(10))
 ![Boxplot of income](https://raw.githubusercontent.com/Velim73285-Star/Velim73285-Star.GitHub.io/main/assets/images/banners/Table_showing_first_10_rows_with_changes.PNG)
 
 ### 2.2 Unit 3: e-Portfolio Activity: Correlation and Regression
-Create the arrays that represent the values of the x and y axis.
-
-x = [5,7,8,7,2,17,2,9,4,11,12,9,6]
-
-y = [99,86,87,88,111,86,103,87,94,78,77,85,86]
+Create the arrays that represent the values of the x and y axis. x = [5,7,8,7,2,17,2,9,4,11,12,9,6] and y = [99,86,87,88,111,86,103,87,94,78,77,85,86]
 
 #### Execute a method that returns some important key values of Linear Regression
 slope, intercept, r, p, std_err = stats.linregress(x, y)
