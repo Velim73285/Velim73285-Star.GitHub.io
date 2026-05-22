@@ -399,7 +399,7 @@ print(df.head(10))
 
 ![Boxplot of income](https://raw.githubusercontent.com/Velim73285-Star/Velim73285-Star.GitHub.io/main/assets/images/banners/Table_showing_first_10_rows_with_changes.PNG)
 
-### 2.2 Unit 3: e-Portfolio Activity: Correlation and Regression
+### 2.3 Unit 3: e-Portfolio Activity: Correlation and Regression
 Create the arrays that represent the values of the x and y axis.
 
 x = [5,7,8,7,2,17,2,9,4,11,12,9,6]
@@ -433,6 +433,171 @@ plt.show()
 ![Boxplot of income](https://raw.githubusercontent.com/Velim73285-Star/Velim73285-Star.GitHub.io/main/assets/images/banners/Scatter_plot_linear_regression_line.PNG)
 
 Pearsons correlation: -0.759
+
+### 2.4 Unit 4: Linear Regression with Scikit-Learn
+#### Task A: Correlation analysis
+Pre-process the data, mean population of each country and mean per capita GDP (from 2001 to 2021) by making some arrangements for the missing values (HINT: You will need to use the datasets Global_GDP.csv and Global_Population.csv). Investigate any correlation between the mean population of each country and the mean per capita GDP (from 2001 to 2021). Very briefly, interpret the generated plot. Evaluate the Pearson Correlation Coefficient.
+
+#### Python code to answer the question
+#### importing the libraries 
+import pandas as pd
+
+import numpy as np
+
+import matplotlib.pyplot as plt
+
+import seaborn as sns
+
+from scipy.stats import pearsonr
+
+#### Load datasets
+pop = pd.read_csv("Unit04 Global_Population.csv")
+
+gdp = pd.read_csv("Unit04 Global_GDP.csv")
+
+### Define target years
+target_years = [str(y) for y in range(2001, 2022)]
+
+#### Intersect with actual columns present in each dataset
+pop_years = [y for y in target_years if y in pop.columns]
+
+gdp_years = [y for y in target_years if y in gdp.columns]
+
+#### Subset data
+pop_data = pop[["Country Name", "Country Code"] + pop_years]
+
+gdp_data = gdp[["Country Name", "Country Code"] + gdp_years]
+
+#### Replace missing values with NaN and convert to float
+pop_data[pop_years] = pop_data[pop_years].replace("..", np.nan).astype(float)
+
+gdp_data[gdp_years] = gdp_data[gdp_years].replace("..", np.nan).astype(float)
+
+#### Interpolate missing values across years
+pop_data[pop_years] = pop_data[pop_years].interpolate(axis=1, limit_direction="both")
+
+gdp_data[gdp_years] = gdp_data[gdp_years].interpolate(axis=1, limit_direction="both")
+
+#### Compute mean population and mean GDP
+pop_data["Mean_Population"] = pop_data[pop_years].mean(axis=1)
+
+gdp_data["Mean_GDP"] = gdp_data[gdp_years].mean(axis=1)
+
+#### Merge datasets
+merged = pd.merge(pop_data[["Country Name", "Country Code", "Mean_Population"]],
+                  gdp_data[["Country Code", "Mean_GDP"]],
+                  on="Country Code")
+
+#### Compute mean per capita GDP
+merged["Mean_PerCapita_GDP"] = merged["Mean_GDP"] / merged["Mean_Population"]
+
+##### Scatter plot
+plt.figure(figsize=(10,6))
+
+sns.scatterplot(data=merged, x="Mean_Population", y="Mean_PerCapita_GDP")
+
+plt.xscale("log")
+
+plt.yscale("log")
+
+plt.xlabel("Mean Population (2001–2021, log scale)")
+
+plt.ylabel("Mean Per Capita GDP (2001–2021, log scale)")
+
+plt.title("Mean Population vs Mean Per Capita GDP (2001–2021)")
+
+plt.show()
+
+#### Pearson correlation
+corr, p_value = pearsonr(merged["Mean_Population"], merged["Mean_PerCapita_GDP"])
+
+print(f"Pearson Correlation Coefficient: {corr:.4f}, p-value: {p_value:.4e}")
+
+#### Results 
+
+![Boxplot of income](https://raw.githubusercontent.com/Velim73285-Star/Velim73285-Star.GitHub.io/main/assets/images/banners/Scatter_plot_linear_regression_line.PNG)
+
+The plot suggests that economic prosperity per person is inversely related to population size. Larger populations do not automatically translate into higher average wealth, in fact, the opposite trend is visible.
+
+#### Drop rows with NaN or infinite values
+merged_clean = merged.replace([np.inf, -np.inf], np.nan).dropna(subset=["Mean_Population", "Mean_PerCapita_GDP"])
+
+#### Pearson correlation
+corr, p_value = pearsonr(merged_clean["Mean_Population"], merged_clean["Mean_PerCapita_GDP"])
+
+print(f"Pearson Correlation Coefficient: {corr:.4f}, p-value: {p_value:.4e}")
+
+#### Results for Pearson Correlation Coefficient
+
+Pearson Correlation Coefficient: -0.0997, p-value: 1.1082e-01
+
+Weak negative correlation: The coefficient (−0.0997) is very close to zero. This indicates that there is almost no linear relationship between mean population size and mean per capita GDP across countries in your dataset. The slight negative sign suggests that larger populations might be associated with lower per capita GDP, but the effect is extremely weak.
+
+Not statistically significant: The p value (0.11) is greater than the common threshold of 0.05. This means the observed correlation could easily be due to random variation in the data rather than a real underlying relationship. This means, the null hypothesis of “no correlation.” Cannot be rejected.
+
+#### Task B: Regression analysis
+Perform linear regression, where the independent variable is the mean population of each country (from 2001 to 2021) and dependent variable is mean per capita GDP (from 2001 to 2021). Be prepared to discuss your agreed results during the seminar session.
+
+#### Python code to answer the question
+#### importing the libraries 
+import numpy as np
+
+import matplotlib.pyplot as plt
+
+import seaborn as sns
+
+from sklearn.linear_model import LinearRegression
+
+#### Prepare variables
+X = merged_clean[["Mean_Population"]].values
+
+y = merged_clean["Mean_PerCapita_GDP"].values
+
+#### Fit regression
+model = LinearRegression()
+
+model.fit(X, y)
+
+#### Sort values for plotting
+X_sorted = np.sort(X, axis=0)
+
+y_pred_sorted = model.predict(X_sorted)
+
+#### Scatter plot
+plt.figure(figsize=(10,6))
+
+sns.scatterplot(x=merged_clean["Mean_Population"], y=merged_clean["Mean_PerCapita_GDP"])
+
+#### Plot regression line (smooth)
+plt.plot(X_sorted, y_pred_sorted, color="red", linewidth=2, label="Regression Line")
+
+plt.xscale("log")
+
+plt.yscale("log")
+
+plt.xlabel("Mean Population (2001–2021, log scale)")
+
+plt.ylabel("Mean Per Capita GDP (2001–2021, log scale)")
+
+plt.title("Linear Regression: Population vs Per Capita GDP")
+
+plt.legend()
+
+plt.show()
+
+#### Print regression coefficients
+print("Intercept:", model.intercept_)
+print("Slope:", model.coef_[0])
+
+#### Results
+
+![Boxplot of income](https://raw.githubusercontent.com/Velim73285-Star/Velim73285-Star.GitHub.io/main/assets/images/banners/Scatter_plot_linear_regression_line.PNG)
+
+Intercept: 15456.464474541826
+
+Slope: −0.0000025249
+
+Y(Estimate) =15456.464 −0.0000025249 ⋅ X
 
 ## 3.	What exactly have I learnt and how?
 To be completed
