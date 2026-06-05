@@ -648,6 +648,55 @@ for a, b in pairs:
 
 ![Boxplot of income](https://raw.githubusercontent.com/Velim73285-Star/Velim73285-Star.GitHub.io/main/assets/images/banners/Jaccard_distance_results1.PNG)
 
+### 2.7 Unit 1 - 6: Team project artefacts  
+#### Airbnb Business Analysis Using a Data Science Approach
+#### Background
+Since 2008, guests and hosts have used Airbnb to expand on travelling possibilities and present more unique, personalised ways of experiencing the world. The Airbnb dataset AB_NYC_2019.csv along with its description was accessed from Kaggle. This dataset describes the listing activity and metrics in NYC, NY for 2019,  including host information, geographical availability, and key metrics to support predictions and insights.
+
+The assignment is designed to assess the students’ ability to apply machine learning approaches to analyse Airbnb business trends. Each team was assigned one of three machine learning tracks, ensuring diverse perspectives in data exploration and decision-making.
+
+Each group conducted an independent analysis based on their assigned approach and then contributed to a comparative discussion on the effectiveness of each method.
+
+Track 1: Classical ML (Regression and Clustering): Price prediction, demand trends, customer segmentation
+Track 2: Deep Learning (Neural Networks, CNNs): Image-based analysis, text-based sentiment analysis, demand forecasting
+Track 3: Advanced ML (Self-Supervised Learning, NAS): Anomaly detection, outlier detection, emerging trend identification
+
+#### Team meeting on 08 May 2026
+Meeting key discussion points:
+
+•	Discussion on the team’s contract,
+
+•	Discussed and agreed that focus will be on predicting demand (using proxy/or calculated demand score),
+
+•	Agreed that responsibility for organising and running meetings will be circulated,
+
+•	Team members to take responsibility for driving proposed sections of project and drafting the associated paragraphs for the report.
+
+#### Team meeting on 15 May 2026
+Finalisation of work allocation and presentation on the following tasks:
+
+•	Agreed on team contract,
+
+•	Agreed on business question,
+
+•	High level presentation on the validation of the business question,
+
+•	Presentation on Exploratory Data Analysis (EDA),
+
+•	Date for the next meeting.
+
+#### Team meeting on 25 May 2026
+Finalisation of work allocation and presentation on the following tasks:
+
+•	Presentation of Text/NLP neural network model and results by the responsible person,
+
+•	Presentation of CNN map-patch model and results by the responsible person,
+
+•	Presentation of demand modelling and results by the responsible person,
+
+•	Planning of the development of the hybrid model by the responsible person. 
+
+
 
 ## 3.	What exactly have I learnt and how?
 To be completed
